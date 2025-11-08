@@ -1,0 +1,26 @@
+name: kape4u
+description: AI-powered coffee shop finder
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_generative_ai: ^0.4.6
+  http: ^1.1.0
+  geolocator: ^10.1.0
+  permission_handler: ^11.0.1
+  url_launcher: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
