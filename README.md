@@ -1,17 +1,18 @@
-# bible_chat_bot
+# Kape4U
 
-A new Flutter project.
+Our application helps users quickly find, compare, and get AI-driven recommendations for the best coffee shops nearby by combining Google Maps, Places API data, and the power of Gemini AI. Users can search by area, view detailed ratings and reviews, and receive personalized suggestions for their next great coffee experience.
 
-## Getting Started
+# Features
+Search for coffee shops using keywords or by area (e.g., BGC, Salcedo, etc.)
 
-This project is a starting point for a Flutter application.
+Browse real-time results with ratings, photos, and latest reviews
 
-A few resources to get you started if this is your first Flutter project:
+Get detailed shop info and ratings from Google Places
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+AI-powered chat to ask for coffee shop recommendations based on user preferences
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Integrated with Google Maps (for supported platforms)
+
+Clean, intuitive Flutter UI
+
 # Kape4u---Kape-Lovers
