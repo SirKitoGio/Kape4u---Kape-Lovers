@@ -1,111 +1,45 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../models/coffee_shop.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://codekada.jagempes.com';
-  
-  // Test connection to your server
-  Future<Map<String, dynamic>> testConnection() async {
+  // PASTE YOUR NPOINT LINK HERE! vvvvv
+  static const String _url = "https://api.npoint.io/953190699f71a62784d3"; 
+
+  // Fetch Coffee Shops
+  static Future<List<CoffeeShop>> getCoffeeShops() async {
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/test'),
-        headers: {'Content-Type': 'application/json'},
-      );
-      
+      final response = await http.get(Uri.parse(_url));
+
       if (response.statusCode == 200) {
-        return {
-          'success': true,
-          'data': jsonDecode(response.body),
-          'message': 'Connected to server successfully'
-        };
+        final Map<String, dynamic> data = json.decode(response.body);
+        final List<dynamic> shopsJson = data['shops'];
+
+        return shopsJson.map((json) => CoffeeShop.fromJson(json)).toList();
       } else {
-        return {
-          'success': false,
-          'message': 'Server returned status: ${response.statusCode}'
-        };
+        throw Exception("Failed to load data");
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Connection failed: $e'
-      };
+      throw Exception("Error fetching coffee shops: $e");
     }
   }
-  
-  // Save journal entry to server
-  Future<Map<String, dynamic>> saveJournalEntry({
-    required String title,
-    required String content,
-    required String mood,
-    List<String>? tags,
-  }) async {
+
+  // Fetch Promos (We return a simple list of Maps for now)
+  static Future<List<Map<String, dynamic>>> getPromos() async {
     try {
-      final response = await http.post(
-        Uri.parse('$baseUrl/api/journal'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'title': title,
-          'content': content,
-          'mood': mood,
-          'tags': tags ?? [],
-          'timestamp': DateTime.now().toIso8601String(),
-        }),
-      );
-      
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return {
-          'success': true,
-          'data': jsonDecode(response.body),
-        };
-      } else {
-        return {
-          'success': false,
-          'message': 'Failed to save: ${response.statusCode}'
-        };
-      }
-    } catch (e) {
-      return {
-        'success': false,
-        'message': 'Error saving entry: $e'
-      };
-    }
-  }
-  
-  // Fetch all journal entries from server
-  Future<List<dynamic>> getJournalEntries() async {
-    try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/api/journal'),
-        headers: {'Content-Type': 'application/json'},
-      );
-      
+      final response = await http.get(Uri.parse(_url));
+
       if (response.statusCode == 200) {
-        return jsonDecode(response.body) as List<dynamic>;
+        final Map<String, dynamic> data = json.decode(response.body);
+        final List<dynamic> promosJson = data['promos'];
+
+        // Convert to List<Map>
+        return promosJson.map((item) => item as Map<String, dynamic>).toList();
       } else {
-        throw Exception('Failed to load entries');
+        throw Exception("Failed to load promos");
       }
     } catch (e) {
-      print('Error fetching entries: $e');
-      return [];
-    }
-  }
-  
-  // Get AI-generated prompt from your server
-  Future<String> getAIPrompt() async {
-    try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/api/prompt'),
-        headers: {'Content-Type': 'application/json'},
-      );
-      
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data['prompt'] ?? 'What made today special?';
-      } else {
-        return 'How are you feeling today?';
-      }
-    } catch (e) {
-      return 'What are you grateful for?';
+      return []; // Return empty list on error
     }
   }
 }

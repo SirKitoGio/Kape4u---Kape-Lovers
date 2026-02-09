@@ -13,7 +13,7 @@ class GeminiService {
 
   // Generate a daily journaling prompt
   Future<String> generateDailyPrompt() async {
-    final prompt = 'Generate a single thoughtful, inspiring journaling prompt that encourages self-reflection and personal growth. Keep it under 15 words.';
+    const prompt = 'Generate a single thoughtful, inspiring journaling prompt that encourages self-reflection and personal growth. Keep it under 15 words.';
     
     try {
       final response = await model.generateContent([Content.text(prompt)]);

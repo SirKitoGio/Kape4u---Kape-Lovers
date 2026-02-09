@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class QuickEntryModal extends StatefulWidget {
-  const QuickEntryModal({Key? key}) : super(key: key);
+  const QuickEntryModal({super.key});
 
   @override
   State<QuickEntryModal> createState() => _QuickEntryModalState();
